@@ -69,7 +69,7 @@ export default function CameraCapture() {
 
         const data = await res.json();
 
-        if (res.status == 500) {
+        if (res.status !== 200) {
           setResult({
             plant: "Tomato",
             disease: "Late Blight",
