@@ -40,6 +40,13 @@ export default function Navbar() {
               >
                 Dashboard
               </Link> 
+
+              <Link 
+                href="/diagnosis" 
+                className="text-sm text-gray-600 dark:text-white/70 hover:text-black dark:hover:text-white transition-colors"
+              >
+                Diagnosis
+              </Link> 
             </>
           )}
           
