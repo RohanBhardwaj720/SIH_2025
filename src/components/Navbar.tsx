@@ -47,6 +47,12 @@ export default function Navbar() {
               >
                 Diagnosis
               </Link> 
+               <Link 
+                href="/carbon_credits" 
+                className="text-sm text-gray-600 dark:text-white/70 hover:text-black dark:hover:text-white transition-colors"
+              >
+                Carbon Credits
+              </Link> 
             </>
           )}
           
