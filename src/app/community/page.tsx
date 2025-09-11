@@ -1,5 +1,7 @@
+"use client";
 import React from 'react';
 import { Card } from '@/components/ui/card';
+import { useSession } from 'next-auth/react';
 import {
   MessageSquare,
   Users,
@@ -18,13 +20,17 @@ import {
   Book
 } from 'lucide-react';
 
+
 export default function CommunityPage() {
+
+  const { data: session, status } = useSession();
+
   // Mock user data
   const user = {
-    name: "John Smith",
+    name: session?.user?.name || 'Farmer',
     avatar: null,
-    location: "Punjab, India",
-    joinDate: "March 2023",
+    location: "Delhi, India",
+    joinDate: "March 2025",
     posts: 12,
     reputation: 128
   };

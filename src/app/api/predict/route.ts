@@ -6,8 +6,6 @@ export async function POST(req: Request) {
 
     const { image, location } = body;
 
-    console.log(image, location);
-
     // Call your external ML service
     const response = await fetch(`${process.env.DIAGNOSE_API}`, {
       method: "POST",

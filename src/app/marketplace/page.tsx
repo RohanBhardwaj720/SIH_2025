@@ -52,7 +52,7 @@ const mockListings: MarketplaceItem[] = [
       rating: 4.8,
       verified: true
     },
-    image: "https://images.unsplash.com/photo-1566383444824-9ad014e96f5f?q=80&w=2565&auto=format&fit=crop",
+    image: "/image4.png",
     organic: true,
     description: "High-quality wheat seeds with excellent germination rate. Ideal for Rabi season.",
     postedAt: "2 days ago"
@@ -70,7 +70,7 @@ const mockListings: MarketplaceItem[] = [
       rating: 4.5,
       verified: true
     },
-    image: "https://images.unsplash.com/photo-1586201375761-83865001e8c3?q=80&w=2570&auto=format&fit=crop",
+    image: "/image3.png",
     organic: true,
     description: "Freshly harvested organic rice. No pesticides used.",
     postedAt: "5 days ago"
@@ -106,7 +106,7 @@ const mockListings: MarketplaceItem[] = [
       rating: 4.3,
       verified: false
     },
-    image: "https://images.unsplash.com/photo-1591638246632-e5a94dd34b81?q=80&w=2574&auto=format&fit=crop",
+    image: "/image5.png",
     organic: false,
     description: "45HP tractor available for rent. Includes basic implements.",
     postedAt: "3 days ago"

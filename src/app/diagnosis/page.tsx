@@ -37,7 +37,7 @@ export default function DiagnosisPage() {
       plant: "Wheat",
       disease: "Leaf Rust",
       date: "2 days ago",
-      image: "https://images.unsplash.com/photo-1574943320219-855736e8f381?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHdoZWF0JTIwbGVhZnxlbnwwfHwwfHx8MA%3D%3D",
+      image: "/image2.png",
       severity: "Medium"
     },
     {
@@ -45,7 +45,7 @@ export default function DiagnosisPage() {
       plant: "Rice",
       disease: "Bacterial Leaf Blight",
       date: "1 week ago",
-      image: "https://images.unsplash.com/photo-1536632553667-61b2548fef8f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cmljZSUyMHBsYW50fGVufDB8fDB8fHww",
+      image: "/image.png",
       severity: "High"
     },
     {
