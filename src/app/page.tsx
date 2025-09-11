@@ -38,7 +38,7 @@ const WeatherWidget = () => {
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-lg font-semibold">Today's Weather</h3>
-          <p className="text-sm opacity-90">Chandigarh, Punjab</p>
+          <p className="text-sm opacity-90">Delhi</p>
         </div>
         <CloudRain className="h-10 w-10" />
       </div>
