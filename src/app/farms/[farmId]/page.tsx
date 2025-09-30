@@ -194,6 +194,7 @@ const generateMockFarm = (farmId: string): Farm => {
     const hourOfDay = timestamp.getHours();
     const isDaytime = hourOfDay > 6 && hourOfDay < 18;
     
+    
     weatherData.push({
       temperature: 25 + (Math.random() * 6 - 3) + (isDaytime ? 5 : -3),
       humidity: 65 + (Math.random() * 12 - 6) + (isDaytime ? -5 : 5),
@@ -203,6 +204,7 @@ const generateMockFarm = (farmId: string): Farm => {
       timestamp: timestamp.toISOString()
     });
   }
+
 
   return {
     id: farmId,
@@ -494,7 +496,7 @@ const FarmOverviewSection = ({ farm }: { farm: Farm }) => {
       </div>
       
       {/* Carbon Credits Summary */}
-      <div>
+      {/* <div>
         <h3 className="text-xl font-bold mb-4">Carbon Credits</h3>
         <Card className="p-6">
           <div className="flex flex-col md:flex-row items-center justify-between">
@@ -523,7 +525,7 @@ const FarmOverviewSection = ({ farm }: { farm: Farm }) => {
             </div>
           </div>
         </Card>
-      </div>
+      </div> */}
       
       {/* Crop List */}
       <div>
@@ -981,7 +983,7 @@ const FarmAnalytics = ({ farm }: { farm: Farm }) => {
             </div>
           </Card>
           
-          <Card className="p-4 border">
+          {/* <Card className="p-4 border">
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-sm text-gray-500 dark:text-gray-400">Carbon Credits</p>
@@ -991,7 +993,7 @@ const FarmAnalytics = ({ farm }: { farm: Farm }) => {
                 <Leaf className="h-5 w-5 text-green-600 dark:text-green-400" />
               </div>
             </div>
-          </Card>
+          </Card> */}
         </div>
         
         {/* Performance Charts */}
@@ -1150,7 +1152,7 @@ const FarmOverview = ({ farm }: { farm: Farm }) => {
           </div>
         </Card>
         
-        <Card className="p-4 border">
+        {/* <Card className="p-4 border">
           <div className="flex justify-between items-start">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">Carbon Credits</p>
@@ -1160,7 +1162,7 @@ const FarmOverview = ({ farm }: { farm: Farm }) => {
               <Leaf className="h-5 w-5 text-green-600 dark:text-green-400" />
             </div>
           </div>
-        </Card>
+        </Card> */}
       </div>
       
       {/* Crop List */}
@@ -1262,21 +1264,21 @@ export default function FarmDetailPage() {
         
         {/* Quick Access Buttons */}
         <div className="flex flex-wrap gap-2 mb-6">
-          <Link 
+          {/* <Link 
             href={`/farms/${farm.id}/prediction`}
             className="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md text-sm transition-colors"
           >
             <Sprout className="mr-2 h-4 w-4" />
             Crop Prediction
-          </Link>
+          </Link> */}
           
-          <Link 
+          {/* <Link 
             href={`/farms/${farm.id}/carbon`}
             className="inline-flex items-center px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/40 rounded-md text-sm transition-colors"
           >
             <Leaf className="mr-2 h-4 w-4" />
             Carbon Credits
-          </Link>
+          </Link> */}
           
           <Link 
             href={`/farms/${farm.id}/crops`}
@@ -1292,8 +1294,8 @@ export default function FarmDetailPage() {
             <TabsTrigger value="overview" className="text-sm">Overview</TabsTrigger>
             <TabsTrigger value="sensor" className="text-sm">Sensor Data</TabsTrigger>
             <TabsTrigger value="analytics" className="text-sm">Analytics</TabsTrigger>
-            <TabsTrigger value="prediction" className="text-sm">Crop Prediction</TabsTrigger>
-            <TabsTrigger value="carbon" className="text-sm">Carbon Credits</TabsTrigger>
+            {/* <TabsTrigger value="prediction" className="text-sm">Crop Prediction</TabsTrigger> */}
+            {/* <TabsTrigger value="carbon" className="text-sm">Carbon Credits</TabsTrigger> */}
           </TabsList>
           
           <TabsContent value="overview">
@@ -1308,7 +1310,7 @@ export default function FarmDetailPage() {
             <FarmAnalytics farm={farm} />
           </TabsContent>
           
-          <TabsContent value="prediction">
+          {/* <TabsContent value="prediction">
             <div className="text-center py-12">
               <h3 className="text-xl font-bold mb-2">Crop Prediction</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -1322,9 +1324,9 @@ export default function FarmDetailPage() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </div>
-          </TabsContent>
+          </TabsContent> */}
           
-          <TabsContent value="carbon">
+          {/* <TabsContent value="carbon">
             <div className="text-center py-12">
               <h3 className="text-xl font-bold mb-2">Carbon Credits</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -1338,7 +1340,7 @@ export default function FarmDetailPage() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </div>
-          </TabsContent>
+          </TabsContent> */}
         </Tabs>
       </div>
       <Footer />

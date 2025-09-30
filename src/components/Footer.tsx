@@ -45,26 +45,26 @@ export function Footer() {
                   My Farms
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/diagnosis" className="text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors">
                   Crop Diagnosis
                 </Link>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <Link href="/carbon_credits" className="text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors">
                   Carbon Credits
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link href="/predictions" className="text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors">
                   Predictions
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/marketplace" className="text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors">
                   Marketplace
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link href="/analytics" className="text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors">
                   Analytics

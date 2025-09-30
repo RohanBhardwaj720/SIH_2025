@@ -48,25 +48,25 @@ export default function Navbar() {
                 My Farms
               </Link>
               
-              <Link 
+              {/* <Link 
                 href="/carbon_credits" 
                 className="text-sm text-gray-600 dark:text-white/70 hover:text-black dark:hover:text-white transition-colors"
               >
                 Carbon Credits
-              </Link>
-              <Link 
+              </Link> */}
+              {/* <Link 
                 href="/diagnosis" 
                 className="text-sm text-gray-600 dark:text-white/70 hover:text-black dark:hover:text-white transition-colors"
               >
                 
                 Diagnosis
-              </Link>
-              <Link 
+              </Link> */}
+              {/* <Link 
                 href="/marketplace" 
                 className="text-sm text-gray-600 dark:text-white/70 hover:text-black dark:hover:text-white transition-colors"
               >
                 Marketplace
-              </Link>
+              </Link> */}
               
               <Link 
                 href="/community" 
