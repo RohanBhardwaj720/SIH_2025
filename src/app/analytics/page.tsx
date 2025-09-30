@@ -510,14 +510,14 @@ const AnalyticsPage = () => {
             color={{bg: "bg-blue-100 dark:bg-blue-900/30", chart: "bg-blue-500"}}
           />
           <SensorDataCard 
-            title="Temperature" 
+            title="Soil pH " 
             data={sensorData.temperature} 
-            unit="°C" 
+            unit="" 
             icon={<Thermometer className="h-4 w-4 text-red-500" />} 
             color={{bg: "bg-red-100 dark:bg-red-900/30", chart: "bg-red-500"}}
           />
           <SensorDataCard 
-            title="Soil Health" 
+            title="Soil EC" 
             data={sensorData.soilHealth} 
             unit="%" 
             icon={<Leaf className="h-4 w-4 text-green-500" />} 

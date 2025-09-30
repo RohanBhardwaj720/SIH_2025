@@ -33,6 +33,9 @@ import {
   TabsList, 
   TabsTrigger 
 } from "../../../components/ui/tabs";
+// import { Chart as ChartJS, Tooltip, Legend } from "chart.js";
+// import { MatrixController, MatrixElement } from "chartjs-chart-matrix";
+// import { Chart } from "react-chartjs-2";
 
 // Define the interfaces for sensor data
 interface SoilData {
@@ -600,19 +603,23 @@ const SensorData = ({ farm }: { farm: Farm }) => {
                 <span className="text-green-600 dark:text-green-400">Online</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span>Soil Temperature Sensors</span>
+                <span>Soil pH Sensors</span>
                 <span className="text-green-600 dark:text-green-400">Online</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span>Soil NPK Sensors</span>
+                <span>Soil EC Sensors</span>
                 <span className="text-green-600 dark:text-green-400">Online</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span>pH Sensors</span>
+                <span>Air Temperature Sensor </span>
                 <span className="text-green-600 dark:text-green-400">Online</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span>EC Sensors</span>
+                <span>Humidity Sensors</span>
+                <span className="text-green-600 dark:text-green-400">Online</span>
+              </div>
+                            <div className="flex justify-between text-sm">
+                <span>Rainfall Sensor</span>
                 <span className="text-green-600 dark:text-green-400">Online</span>
               </div>
             </div>
@@ -655,6 +662,7 @@ const SensorData = ({ farm }: { farm: Farm }) => {
         </div>
       </Card>
       
+      
       {/* Soil Data Visualization */}
       <div>
         <h3 className="text-xl font-bold mb-4">Soil Conditions (Last 24 Hours)</h3>
@@ -691,229 +699,17 @@ const SensorData = ({ farm }: { farm: Farm }) => {
           </Card>
           
           {/* Soil Temperature Chart */}
-          <Card className="p-5">
-            <h4 className="font-medium mb-3">Soil Temperature</h4>
-            <div className="aspect-[4/3] w-full bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-              <LineChart className="h-12 w-12 text-gray-400" />
-              <p className="ml-3 text-sm text-gray-500 dark:text-gray-400">
-                Chart visualization would be rendered here
-              </p>
-            </div>
-            <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Min</p>
-                <p className="font-medium">
-                  {Math.min(...lastDay.map(d => d.temperature)).toFixed(1)}°C
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Avg</p>
-                <p className="font-medium">
-                  {(lastDay.reduce((sum, d) => sum + d.temperature, 0) / lastDay.length).toFixed(1)}°C
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Max</p>
-                <p className="font-medium">
-                  {Math.max(...lastDay.map(d => d.temperature)).toFixed(1)}°C
-                </p>
-              </div>
-            </div>
-          </Card>
+          
           
           {/* Soil pH Chart */}
-          <Card className="p-5">
-            <h4 className="font-medium mb-3">Soil pH</h4>
-            <div className="aspect-[4/3] w-full bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-              <LineChart className="h-12 w-12 text-gray-400" />
-              <p className="ml-3 text-sm text-gray-500 dark:text-gray-400">
-                Chart visualization would be rendered here
-              </p>
-            </div>
-            <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Min</p>
-                <p className="font-medium">
-                  {Math.min(...lastDay.map(d => d.pH)).toFixed(1)}
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Avg</p>
-                <p className="font-medium">
-                  {(lastDay.reduce((sum, d) => sum + d.pH, 0) / lastDay.length).toFixed(1)}
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Max</p>
-                <p className="font-medium">
-                  {Math.max(...lastDay.map(d => d.pH)).toFixed(1)}
-                </p>
-              </div>
-            </div>
-          </Card>
+         
           
-          {/* NPK Levels Chart */}
-          <Card className="p-5">
-            <h4 className="font-medium mb-3">NPK Levels</h4>
-            <div className="aspect-[4/3] w-full bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-              <BarChart2 className="h-12 w-12 text-gray-400" />
-              <p className="ml-3 text-sm text-gray-500 dark:text-gray-400">
-                Chart visualization would be rendered here
-              </p>
-            </div>
-            <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Nitrogen</p>
-                <p className="font-medium">
-                  {lastDay[0].nitrogen.toFixed(1)} mg/kg
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Phosphorus</p>
-                <p className="font-medium">
-                  {lastDay[0].phosphorus.toFixed(1)} mg/kg
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Potassium</p>
-                <p className="font-medium">
-                  {lastDay[0].potassium.toFixed(1)} mg/kg
-                </p>
-              </div>
-            </div>
-          </Card>
+
         </div>
       </div>
       
       {/* Weather Data Visualization */}
-      <div>
-        <h3 className="text-xl font-bold mb-4">Weather Conditions (Last 24 Hours)</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Air Temperature Chart */}
-          <Card className="p-5">
-            <h4 className="font-medium mb-3">Air Temperature</h4>
-            <div className="aspect-[4/3] w-full bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-              <LineChart className="h-12 w-12 text-gray-400" />
-              <p className="ml-3 text-sm text-gray-500 dark:text-gray-400">
-                Chart visualization would be rendered here
-              </p>
-            </div>
-            <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Min</p>
-                <p className="font-medium">
-                  {Math.min(...weatherData.slice(0, 24).map(d => d.temperature)).toFixed(1)}°C
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Avg</p>
-                <p className="font-medium">
-                  {(weatherData.slice(0, 24).reduce((sum, d) => sum + d.temperature, 0) / 24).toFixed(1)}°C
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Max</p>
-                <p className="font-medium">
-                  {Math.max(...weatherData.slice(0, 24).map(d => d.temperature)).toFixed(1)}°C
-                </p>
-              </div>
-            </div>
-          </Card>
-          
-          {/* Humidity Chart */}
-          <Card className="p-5">
-            <h4 className="font-medium mb-3">Humidity</h4>
-            <div className="aspect-[4/3] w-full bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-              <LineChart className="h-12 w-12 text-gray-400" />
-              <p className="ml-3 text-sm text-gray-500 dark:text-gray-400">
-                Chart visualization would be rendered here
-              </p>
-            </div>
-            <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Min</p>
-                <p className="font-medium">
-                  {Math.min(...weatherData.slice(0, 24).map(d => d.humidity)).toFixed(1)}%
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Avg</p>
-                <p className="font-medium">
-                  {(weatherData.slice(0, 24).reduce((sum, d) => sum + d.humidity, 0) / 24).toFixed(1)}%
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Max</p>
-                <p className="font-medium">
-                  {Math.max(...weatherData.slice(0, 24).map(d => d.humidity)).toFixed(1)}%
-                </p>
-              </div>
-            </div>
-          </Card>
-          
-          {/* Precipitation Chart */}
-          <Card className="p-5">
-            <h4 className="font-medium mb-3">Precipitation</h4>
-            <div className="aspect-[4/3] w-full bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-              <BarChart2 className="h-12 w-12 text-gray-400" />
-              <p className="ml-3 text-sm text-gray-500 dark:text-gray-400">
-                Chart visualization would be rendered here
-              </p>
-            </div>
-            <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Total</p>
-                <p className="font-medium">
-                  {weatherData.slice(0, 24).reduce((sum, d) => sum + d.precipitation, 0).toFixed(1)} mm
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Max Hourly</p>
-                <p className="font-medium">
-                  {Math.max(...weatherData.slice(0, 24).map(d => d.precipitation)).toFixed(1)} mm
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Hours with Rain</p>
-                <p className="font-medium">
-                  {weatherData.slice(0, 24).filter(d => d.precipitation > 0).length}
-                </p>
-              </div>
-            </div>
-          </Card>
-          
-          {/* Wind Speed Chart */}
-          <Card className="p-5">
-            <h4 className="font-medium mb-3">Wind Speed</h4>
-            <div className="aspect-[4/3] w-full bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-              <LineChart className="h-12 w-12 text-gray-400" />
-              <p className="ml-3 text-sm text-gray-500 dark:text-gray-400">
-                Chart visualization would be rendered here
-              </p>
-            </div>
-            <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Min</p>
-                <p className="font-medium">
-                  {Math.min(...weatherData.slice(0, 24).map(d => d.windSpeed)).toFixed(1)} km/h
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Avg</p>
-                <p className="font-medium">
-                  {(weatherData.slice(0, 24).reduce((sum, d) => sum + d.windSpeed, 0) / 24).toFixed(1)} km/h
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Max</p>
-                <p className="font-medium">
-                  {Math.max(...weatherData.slice(0, 24).map(d => d.windSpeed)).toFixed(1)} km/h
-                </p>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
+
     </div>
   );
 };
@@ -1104,6 +900,104 @@ const FarmAnalytics = ({ farm }: { farm: Farm }) => {
     </div>
   );
 };
+// "use client";
+
+// "use client";
+
+import {
+  Chart as ChartJS,
+  Tooltip,
+  Legend,
+  ChartOptions as ChartJSOptions,
+  ChartData,
+  LinearScale,
+  CategoryScale,
+} from "chart.js";
+import {
+  MatrixController,
+  MatrixElement,
+  MatrixDataPoint,
+} from "chartjs-chart-matrix";
+import { Chart } from "react-chartjs-2";
+
+// ✅ Register all required components
+ChartJS.register(
+  MatrixController,
+  MatrixElement,
+  Tooltip,
+  Legend,
+  LinearScale,
+  CategoryScale
+);
+
+// Extend MatrixDataPoint with "v"
+type FarmDataPoint = MatrixDataPoint & { v: number };
+
+const farmData: FarmDataPoint[] = [
+  { x: 0, y: 0, v: 0.8 },
+  { x: 1, y: 0, v: 0.6 },
+  { x: 2, y: 0, v: 0.3 },
+  { x: 0, y: 1, v: 0.9 },
+  { x: 1, y: 1, v: 0.4 },
+  { x: 2, y: 1, v: 0.2 },
+  { x: 0, y: 2, v: 0.7 },
+  { x: 1, y: 2, v: 0.5 },
+  { x: 2, y: 2, v: 0.1 },
+];
+
+function getColor(value: number): string {
+  const r = Math.floor(255 * (1 - value));
+  const g = Math.floor(255 * value);
+  return `rgb(${r},${g},0)`;
+}
+
+export  function Heatmap() {
+  const data: ChartData<"matrix", FarmDataPoint[], unknown> = {
+    datasets: [
+      {
+        label: "Farm Heatmap",
+        data: farmData,
+        backgroundColor: (ctx) =>
+          getColor((ctx.raw as FarmDataPoint).v),
+        width: ({ chart }) =>
+          ((chart.chartArea?.width || 0) / 3) - 2,
+        height: ({ chart }) =>
+          ((chart.chartArea?.height || 0) / 3) - 2,
+      },
+    ],
+  };
+
+  const options: ChartJSOptions<"matrix"> = {
+    responsive: true,
+    scales: {
+      x: {
+        type: "linear", // ✅ now works
+        position: "top",
+        ticks: { stepSize: 1 },
+      },
+      y: {
+        type: "linear", // ✅ now works
+        ticks: { stepSize: 1 },
+      },
+    },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: (ctx) =>
+            `Health Index: ${((ctx.raw as FarmDataPoint).v * 100).toFixed(1)}%`,
+        },
+      },
+    },
+  };
+
+  return (
+    <div className="p-4">
+      <h2 className="text-xl font-semibold mb-4">Farm Health Heatmap</h2>
+      <Chart type="matrix" data={data} options={options} />
+    </div>
+  );
+}
+
 
 // Farm Overview Dashboard Component
 const FarmOverview = ({ farm }: { farm: Farm }) => {
@@ -1296,6 +1190,7 @@ export default function FarmDetailPage() {
             <TabsTrigger value="analytics" className="text-sm">Analytics</TabsTrigger>
             {/* <TabsTrigger value="prediction" className="text-sm">Crop Prediction</TabsTrigger> */}
             {/* <TabsTrigger value="carbon" className="text-sm">Carbon Credits</TabsTrigger> */}
+            <TabsTrigger value="hyperspectral" className="text-sm">Hyperspectral Data</TabsTrigger>
           </TabsList>
           
           <TabsContent value="overview">
@@ -1308,6 +1203,9 @@ export default function FarmDetailPage() {
           
           <TabsContent value="analytics">
             <FarmAnalytics farm={farm} />
+          </TabsContent>
+          <TabsContent value="hyperspectral">
+            <Heatmap/>
           </TabsContent>
           
           {/* <TabsContent value="prediction">
