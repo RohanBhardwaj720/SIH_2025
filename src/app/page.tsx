@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { ArrowRight, Leaf, CloudRain, BarChart2, Zap, Map, Camera, Sprout } from 'lucide-react';
+import { useState, useEffect } from "react";
 import { Card } from '@/components/ui/card';
 
 interface DashboardCardProps {
@@ -14,6 +15,7 @@ interface DashboardCardProps {
 }
 
 const DashboardCard = ({ title, description, icon, link }: DashboardCardProps) => {
+
   return (
     <Link href={link}>
       <Card className="h-full p-6 border border-gray-200 dark:border-gray-800 hover:border-green-500 dark:hover:border-green-500 transition-all hover:shadow-md">
@@ -33,32 +35,71 @@ const DashboardCard = ({ title, description, icon, link }: DashboardCardProps) =
 };
 
 const WeatherWidget = () => {
+  const [weather, setWeather] = useState<any>(null);
+
+  useEffect(() => {
+    if (!navigator.geolocation) {
+      console.log("Geolocation is not supported by your browser");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const { latitude, longitude } = position.coords;
+
+          const res = await fetch(
+            `/api/weather?lat=${latitude}&lon=${longitude}`
+          );
+          if (!res.ok) {
+            throw new Error("Failed to fetch weather");
+          }
+
+          const data = await res.json();
+          console.log("Fetched weather data:", data);
+          setWeather(data);
+        } catch (err) {
+          console.log("Unknown Error:", err)
+        } finally {
+          console.log("Weather fetch attempt finished");
+        }
+      },
+      (geoError) => {
+        console.log("Geolocation error:", geoError);
+      }
+    );
+  }, []);
+
   return (
     <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg p-4 shadow-md">
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-lg font-semibold">Today's Weather</h3>
-          <p className="text-sm opacity-90">Delhi</p>
+          <p className="text-sm opacity-90">{weather?.location?.name}, {weather?.location?.region}</p>
         </div>
-        <CloudRain className="h-10 w-10" />
+        <img
+          src={`https:${weather?.current?.condition?.icon}`}
+          width={64}
+          height={64}
+        />
       </div>
       <div className="mt-4">
         <div className="flex items-end">
-          <span className="text-3xl font-bold">27°C</span>
-          <span className="ml-2 text-sm opacity-80">Partly Cloudy</span>
+          <span className="text-3xl font-bold">{weather?.current?.temp_c}°C</span>
+          <span className="ml-2 text-sm opacity-80">{weather?.current?.condition?.text}</span>
         </div>
         <div className="grid grid-cols-3 gap-2 mt-4 text-center text-xs">
           <div>
             <p className="opacity-80">Humidity</p>
-            <p className="font-medium">62%</p>
+            <p className="font-medium">{weather?.current?.humidity}%</p>
           </div>
           <div>
             <p className="opacity-80">Wind</p>
-            <p className="font-medium">12 km/h</p>
+            <p className="font-medium">{weather?.current?.wind_kph} km/h, {weather?.current?.wind_dir}</p>
           </div>
           <div>
-            <p className="opacity-80">Rainfall</p>
-            <p className="font-medium">0.2 mm</p>
+            <p className="opacity-80">Cloud</p>
+            <p className="font-medium">{weather?.current?.cloud} %</p>
           </div>
         </div>
       </div>
@@ -135,7 +176,7 @@ const Page = () => {
               <div className="mx-auto bg-green-100 dark:bg-green-900/30 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-4">
                 <Camera className="h-8 w-8 text-green-600 dark:text-green-400" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Crop Diagnosis</h3>
+              {/* <h3 className="text-xl font-semibold mb-2">Crop Diagnosis</h3> */}
               <p className="text-gray-600 dark:text-gray-400">Identify diseases and get treatment recommendations</p>
             </div>
             
@@ -176,26 +217,26 @@ const Page = () => {
             link="/farms"
           />
           
-          <DashboardCard 
+          {/* <DashboardCard 
             title="Crop Diagnosis" 
             description="Upload images to identify diseases and get treatment recommendations"
             icon={<Camera className="h-6 w-6 text-green-600 dark:text-green-500" />}
             link="/diagnosis"
-          />
+          /> */}
           
-          <DashboardCard 
+          {/* <DashboardCard 
             title="Carbon Credits" 
             description="Track and trade your carbon credits earned from sustainable farming"
             icon={<Leaf className="h-6 w-6 text-green-600 dark:text-green-500" />}
             link="/carbon_credits"
-          />
+          /> */}
           
-          <DashboardCard 
+          {/* <DashboardCard 
             title="Crop Predictions" 
             description="Get AI-powered recommendations for your next planting season"
             icon={<Sprout className="h-6 w-6 text-green-600 dark:text-green-500" />}
             link="/predictions"
-          />
+          /> */}
           
           <DashboardCard 
             title="Yield Forecasts" 
