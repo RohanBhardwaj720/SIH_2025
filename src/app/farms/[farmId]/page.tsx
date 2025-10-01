@@ -23,7 +23,8 @@ import {
   Clock,
   MapPin,
   Map,
-  Sprout
+  Sprout,
+  AlertCircle
 } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { Card } from "@/components/ui/card";
@@ -951,7 +952,249 @@ function getColor(value: number): string {
   return `rgb(${r},${g},0)`;
 }
 
-export  function Heatmap() {
+// Recommendations and Alerts Component
+function RecommendationsAndAlerts({ farm }: { farm: Farm }) {
+  // Define the interfaces for the recommendations and alerts
+  interface Alert {
+    id: string;
+    zone: string;
+    severity: 'low' | 'medium' | 'high' | 'critical';
+    type: string;
+    description: string;
+    detectedAt: string;
+  }
+  
+  interface Recommendation {
+    id: string;
+    alertId: string;
+    description: string;
+    priority: 'low' | 'medium' | 'high';
+    impact: string;
+    implementationTime: string;
+  }
+  
+  // Mock data for alerts based on hyperspectral/multispectral analysis
+  const alerts: Alert[] = [
+    {
+      id: 'alert1',
+      zone: 'Zone A',
+      severity: 'medium',
+      type: 'Disease',
+      description: 'Stage 1 infection detected in Zone A. Early signs of tomato wilt.',
+      detectedAt: '2025-09-30T10:23:00'
+    },
+    {
+      id: 'alert2',
+      zone: 'Zone B',
+      severity: 'high',
+      type: 'Soil pH',
+      description: 'pH levels too low in Zone B, may affect nutrient absorption.',
+      detectedAt: '2025-09-30T09:15:00'
+    },
+    {
+      id: 'alert3',
+      zone: 'Zone C',
+      severity: 'low',
+      type: 'Moisture',
+      description: 'Slightly lower moisture levels detected in Zone C.',
+      detectedAt: '2025-09-30T11:05:00'
+    },
+    {
+      id: 'alert4',
+      zone: 'Zone D',
+      severity: 'critical',
+      type: 'Nutrient',
+      description: 'Severe nitrogen deficiency in Zone D affecting plant growth.',
+      detectedAt: '2025-09-29T16:45:00'
+    },
+    {
+      id: 'alert5',
+      zone: 'Zone A',
+      severity: 'medium',
+      type: 'Pest',
+      description: 'Early signs of aphid infestation detected on leaf surfaces.',
+      detectedAt: '2025-09-29T14:20:00'
+    }
+  ];
+  
+  // Mock data for recommendations based on the alerts
+  const recommendations: Recommendation[] = [
+    {
+      id: 'rec1',
+      alertId: 'alert1',
+      description: 'Remove 5 infected plants in Zone A and apply copper-based fungicide to surrounding plants.',
+      priority: 'high',
+      impact: 'Prevents disease spread to healthy plants',
+      implementationTime: 'Within 24 hours'
+    },
+    {
+      id: 'rec2',
+      alertId: 'alert2',
+      description: 'Apply soil solarization in Zone B and add lime to increase pH levels gradually.',
+      priority: 'medium',
+      impact: 'Improves nutrient availability and soil health',
+      implementationTime: 'Within 3-5 days'
+    },
+    {
+      id: 'rec3',
+      alertId: 'alert3',
+      description: 'Increase irrigation frequency in Zone C by 15% for the next week.',
+      priority: 'low',
+      impact: 'Maintains optimal moisture for root development',
+      implementationTime: 'Next scheduled irrigation'
+    },
+    {
+      id: 'rec4',
+      alertId: 'alert4',
+      description: 'Apply nitrogen-rich organic fertilizer in Zone D immediately followed by light irrigation.',
+      priority: 'high',
+      impact: 'Reverses nutrient deficiency symptoms and improves growth',
+      implementationTime: 'Within 24 hours'
+    },
+    {
+      id: 'rec5',
+      alertId: 'alert5',
+      description: 'Apply neem oil spray in Zone A during early morning to control aphid population.',
+      priority: 'medium',
+      impact: 'Controls pest without harming beneficial insects',
+      implementationTime: 'Within 48 hours'
+    },
+    {
+      id: 'rec6',
+      alertId: 'alert1',
+      description: 'Switch to drip irrigation in red zones to reduce pathogen spread.',
+      priority: 'medium',
+      impact: 'Minimizes leaf wetness and disease-favorable conditions',
+      implementationTime: 'Within 1 week'
+    }
+  ];
+  
+  // Function to get the appropriate color for severity
+  const getSeverityColor = (severity: string) => {
+    switch (severity) {
+      case 'low': return 'bg-yellow-100 text-yellow-800';
+      case 'medium': return 'bg-orange-100 text-orange-800';
+      case 'high': return 'bg-red-100 text-red-800';
+      case 'critical': return 'bg-red-600 text-white';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  // Function to get the appropriate color for priority
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'low': return 'bg-blue-100 text-blue-800';
+      case 'medium': return 'bg-purple-100 text-purple-800';
+      case 'high': return 'bg-red-100 text-red-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+  
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">Recommendations & Alerts</h2>
+        <div className="text-sm text-gray-500">Last updated: 2 hours ago</div>
+      </div>
+      
+      {/* Hyperspectral Analysis Summary */}
+      <Card className="p-6 border border-gray-200 dark:border-gray-800">
+        <h3 className="text-lg font-semibold mb-3">Hyperspectral / Multispectral Analysis Summary</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Disease Detection</h4>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span>Severity Level Analysis</span>
+                <span className="text-green-600 font-medium">70% Healthy</span>
+              </div>
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                <div className="bg-green-600 h-2.5 rounded-full" style={{ width: '70%' }}></div>
+              </div>
+              <div className="flex justify-between text-xs text-gray-500">
+                <span>Level 0 (Healthy)</span>
+                <span>Level 4 (Severe)</span>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Spectral Health Indices</h4>
+            <div className="grid grid-cols-3 gap-2">
+              <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                <div className="text-xs text-gray-500 mb-1">NDVI</div>
+                <div className="font-bold text-green-600">0.78</div>
+                <div className="text-xs">(Good)</div>
+              </div>
+              <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                <div className="text-xs text-gray-500 mb-1">PRI</div>
+                <div className="font-bold text-amber-600">0.42</div>
+                <div className="text-xs">(Moderate)</div>
+              </div>
+              <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                <div className="text-xs text-gray-500 mb-1">NDWI</div>
+                <div className="font-bold text-blue-600">0.64</div>
+                <div className="text-xs">(Good)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Card>
+      
+      {/* Alerts Section */}
+      <div>
+        <h3 className="text-lg font-semibold mb-3">Active Alerts</h3>
+        <div className="space-y-4">
+          {alerts.map((alert) => (
+            <Card key={alert.id} className="p-4 border border-gray-200 dark:border-gray-800">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="flex items-start gap-3">
+                  <div className={`px-3 py-1 rounded-full text-xs font-medium ${getSeverityColor(alert.severity)}`}>
+                    {alert.severity.charAt(0).toUpperCase() + alert.severity.slice(1)}
+                  </div>
+                  <div>
+                    <h4 className="font-medium">{alert.type} Alert in {alert.zone}</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{alert.description}</p>
+                  </div>
+                </div>
+                <div className="text-xs text-gray-500 ml-6 md:ml-0">
+                  Detected: {new Date(alert.detectedAt).toLocaleString()}
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+      
+      {/* Recommendations Section */}
+      <div>
+        <h3 className="text-lg font-semibold mb-3">Recommended Actions</h3>
+        <div className="space-y-4">
+          {recommendations.map((rec) => (
+            <Card key={rec.id} className="p-4 border border-gray-200 dark:border-gray-800">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center justify-between">
+                  <div className={`px-3 py-1 rounded-full text-xs font-medium ${getPriorityColor(rec.priority)}`}>
+                    {rec.priority.charAt(0).toUpperCase() + rec.priority.slice(1)} Priority
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    Implement: {rec.implementationTime}
+                  </div>
+                </div>
+                <h4 className="font-medium">{rec.description}</h4>
+                <div className="text-sm text-gray-600 dark:text-gray-400">
+                  <span className="font-medium">Impact: </span>{rec.impact}
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function Heatmap() {
   const data: ChartData<"matrix", FarmDataPoint[], unknown> = {
     datasets: [
       {
@@ -1188,6 +1431,7 @@ export default function FarmDetailPage() {
             <TabsTrigger value="overview" className="text-sm">Overview</TabsTrigger>
             <TabsTrigger value="sensor" className="text-sm">Sensor Data</TabsTrigger>
             <TabsTrigger value="analytics" className="text-sm">Analytics</TabsTrigger>
+            <TabsTrigger value="recommendations" className="text-sm">Recommendations & Alerts</TabsTrigger>
             {/* <TabsTrigger value="prediction" className="text-sm">Crop Prediction</TabsTrigger> */}
             {/* <TabsTrigger value="carbon" className="text-sm">Carbon Credits</TabsTrigger> */}
             <TabsTrigger value="hyperspectral" className="text-sm">Hyperspectral Data</TabsTrigger>
@@ -1204,6 +1448,10 @@ export default function FarmDetailPage() {
           <TabsContent value="analytics">
             <FarmAnalytics farm={farm} />
           </TabsContent>
+          <TabsContent value="recommendations">
+            <RecommendationsAndAlerts farm={farm} />
+          </TabsContent>
+          
           <TabsContent value="hyperspectral">
             <Heatmap/>
           </TabsContent>
